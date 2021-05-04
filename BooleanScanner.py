@@ -17,8 +17,8 @@ Scanner class for boolean language
 class BooleanScanner:
 
     # data
-    regexs = ['^([a-zA-Z][a-zA-Z0-9]*)', '^(:=)', '^(\()', '^(0)', '^(1)', '^(AND)', '^(OR)', '^(NOT)', '^(XOR)', '^(\))']
-    types = ['vari', 'asgn', 'lpar', 'false', 'true', 'a', 'o', 'n', 'x', 'rpar']
+    regexs = ['^[\s]+', '^(:=)', '^(\()', '^(0)', '^(1)', '^(AND)', '^(OR)', '^(NOT)', '^(XOR)', '^(\))', '^([a-zA-Z][a-zA-Z0-9]*)']
+    types = ['spc', 'asgn', 'lpar', 'false', 'true', 'a', 'o', 'n', 'x', 'rpar', 'vari']
     lines = []
     pairs = []
 
@@ -38,12 +38,14 @@ class BooleanScanner:
         print('SCANNING')
         mat = None
         for line in self.lines:
-            words = line.split()
-            print('words: ', words)
-            for word in words:
+            print('NEW LINE')
+            while len(line) > 0:
+                print(line)
                 matched = False
                 for regex in self.regexs:
-                    mat = re.match(regex, word)
-                    if(not matched and mat is not None): # readability 100
-                        self.pairs.append([self.types[self.regexs.index(regex)], word])
-                        matched == True
+                    if(not matched):
+                        mat = re.match(regex, line)
+                        if(mat is not None):
+                            self.pairs.append([self.types[self.regexs.index(regex)], mat.group()])
+                            line = line[mat.span()[1]:]
+                            matched = True
