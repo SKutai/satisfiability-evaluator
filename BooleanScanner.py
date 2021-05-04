@@ -17,7 +17,7 @@ Scanner class for boolean language
 class BooleanScanner:
 
     # data
-    regexs = ['[a-zA-Z][a-zA-Z0-9]*', ':=', '(', '0', '1', 'AND', 'OR', 'NOT', 'XOR', ')']
+    regexs = ['^([a-zA-Z][a-zA-Z0-9]*)', '^(:=)', '^(\()', '^(0)', '^(1)', '^(AND)', '^(OR)', '^(NOT)', '^(XOR)', '^(\))']
     types = ['vari', 'asgn', 'lpar', 'false', 'true', 'a', 'o', 'n', 'x', 'rpar']
     lines = []
     pairs = []
@@ -28,15 +28,18 @@ class BooleanScanner:
 
     # read the input
     def getInput(self, s):
+        print('READING')
         with open(s) as f:
             self.lines = f.readlines()
             print('read: ', self.lines)
 
     # translate the input into an array of pairs as in [type, token]
     def scanInput(self):
+        print('SCANNING')
         mat = None
         for line in self.lines:
             words = line.split()
+            print('words: ', words)
             for word in words:
                 matched = False
                 for regex in self.regexs:
