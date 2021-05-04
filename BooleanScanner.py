@@ -24,6 +24,7 @@ class BooleanScanner:
 
     def __init__(self, source):
         self.getInput(source)
+        self.scanInput()
 
     # read the input
     def getInput(self, s):
@@ -43,5 +44,3 @@ class BooleanScanner:
                     if(not matched and mat is not None): # readability 100
                         self.pairs.append([self.types[self.regexs.index(regex)], word])
                         matched == True
-
-        print('pairs: ', self.pairs)
