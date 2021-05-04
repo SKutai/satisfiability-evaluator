@@ -19,4 +19,4 @@ class BooleanScanner:
         for line in self.lines:
             words = line.split()
             for word in words:
-                
+
