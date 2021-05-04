@@ -11,6 +11,9 @@ Satisfiability Evaluator
 
 import re
 
+'''
+Scanner class for boolean language
+'''
 class BooleanScanner:
 
     # data
@@ -24,7 +27,6 @@ class BooleanScanner:
 
     # read the input
     def getInput(self, s):
-        s = 'input.txt'
         with open(s) as f:
             self.lines = f.readlines()
             print('read: ', self.lines)
