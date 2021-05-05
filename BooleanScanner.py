@@ -17,8 +17,18 @@ Scanner class for boolean language
 class BooleanScanner:
 
     # data
-    regexs = ['^[\s]+', '^(:=)', '^(\()', '^(0)', '^(1)', '^(AND)', '^(OR)', '^(NOT)', '^(XOR)', '^(\))', '^([a-zA-Z][a-zA-Z0-9]*)']
-    types = ['spc', 'asgn', 'lpar', 'false', 'true', 'a', 'o', 'n', 'x', 'rpar', 'vari']
+    regexs = [
+        ['^[\s]+','spc'],
+        ['^(:=)','asgn'],
+        ['^(\()','lpar'],
+        ['^(0)','false'],
+        ['^(1)','true'],
+        ['^(AND)','a'],
+        ['^(OR)','o'],
+        ['^(NOT)','n'],
+        ['^(XOR)','x'],
+        ['^(\))','rpar'],
+        ['^([a-zA-Z][a-zA-Z0-9]*)','vari']]
     lines = []
     pairs = []
 
@@ -44,8 +54,8 @@ class BooleanScanner:
                 matched = False
                 for regex in self.regexs:
                     if(not matched):
-                        mat = re.match(regex, line)
+                        mat = re.match(regex[0], line)
                         if(mat is not None):
-                            self.pairs.append([self.types[self.regexs.index(regex)], mat.group()])
+                            self.pairs.append([regex[1], mat.group()])
                             line = line[mat.span()[1]:]
                             matched = True
