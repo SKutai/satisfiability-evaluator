@@ -12,7 +12,6 @@ Satisfiability Evaluator
 import re
 from symbolTable import symbolTable
 
-
 '''
 Scanner class for boolean language
 '''

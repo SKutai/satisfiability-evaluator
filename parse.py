@@ -1,11 +1,25 @@
+from symbolTable import symbolTable
 
 class Parse:
 	def __init__(self):
 		pass
 
 	def evaluate(self, tokens):
-		print(self.evaluateExpression(tokens))
 
+        # check if this line is assigning to variable
+        addingToTable = False
+        if tokens[0][0] == 'vari' and tokens[1][0] == 'asgn':
+            name = tokens[0][1]
+            tokens = tokens[2:] # pop the first two tokens off
+            addingToTable = True
+
+        # resolve the value of the line
+        val = self.evaluateExpression(tokens)
+		print(val)
+
+        # add the variable to the symbol table
+        if addingToTable:
+            symbolTable.add(name, val)
 
 	def evaluateExpression(self, tokens):
 		stack = []
@@ -27,6 +41,16 @@ class Parse:
 				stack.append(e)
 
 		right = stack.pop()
+
+        # check for a variable
+        # then change the value of right to mimic reading a true or false
+        if right[0] == 'vari':
+            variVal = right[1]
+            if variVal == '1':
+                right = ['true', '1']
+            else:
+                right = ['false', '0']
+
 		if len(stack) < 1:
 			return right
 		if right[0] == 'true':

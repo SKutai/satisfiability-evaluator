@@ -4,10 +4,10 @@ from parse import *
 
 scan = BooleanScanner('smallinput.txt')
 tokenPairs = scan.pairs
-#print("Pairs")
+#print(tokenPairs)
 
 line_scanned = scan.line_scanned
-#print(line_scanned)
+print(line_scanned)
 parse = Parse()
 
 for e in line_scanned:
